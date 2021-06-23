@@ -1,0 +1,44 @@
+html,body { 
+    height:100%;
+    width: 100%;
+    margin: auto;
+}
+
+body{
+    display:table-cell; text-align:center; vertical-align:middle;
+  
+  }
+
+.wrapper {
+    display:grid;
+    height:500px;
+    width:300px;
+    grid-template-rows: 2fr repeat(5, 1fr);
+    grid-template-columns: repeat(4,1fr);
+    justify-items: stretch ;
+  
+}
+
+#display{
+    grid-column: span 4;
+    background: green;
+    color:black;
+    
+
+    text-align:right;
+}
+
+#btn1{
+    grid-column: span 2;
+}
+
+#btn16{
+    grid-column: span 2;
+}
+
+.button {
+    color:rgb(33, 199, 33);
+    background-color: black;
+   
+
+}
