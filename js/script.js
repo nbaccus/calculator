@@ -40,14 +40,16 @@ function storeNumber(object, number) {
     if (object.x == null) {
         object.x = number; 
     }
-    else if (object.operation == null) {
+    else if (object.operation == null && object.x.length<=10) {
         object.x += number;
     }
     else  {
         if (object.y==null) {
+            console.log("inhere");
         object.y=number;
         }
-        else {
+        else if ( object.y.length<=10){
+            console.log("inhere2");
             object.y += number;
         }
 
@@ -101,6 +103,7 @@ const calculator = {
 }
 
 let calculation = {};
+initialiseCalculation();
 
 for (let i = 1; i <= 19; i++) {
     if (i!=1) {
@@ -157,7 +160,7 @@ buttons.forEach((button) => {
                 let result = operate(calculation.x, calculation.y, calculation.operation);
                 let displayresult = 
                 parseFloat(operate(calculation.x, calculation.y, calculation.operation)).toFixed(2);
-                displayCurrentCalc(displayresult);
+                displayCurrentCalc(Number(displayresult));
                 initialiseCalculation();
                 calculation.x = result;
             }
@@ -200,11 +203,7 @@ buttons.forEach((button) => {
 
      else {   
         if (isNaN(button.value)) {
-            if (calculation.operation!=null && calculation.y==null) {
-                    displayvariable="SYNTAX ERROR";
-                }
-            else if (calculation.operation != null && calculation.y!=null) {
-                console.log("inhere");
+             if (calculation.operation != null && calculation.y!=null) {
                 let result = 
                 parseFloat(operate(calculation.x, calculation.y, calculation.operation)).toFixed(5);
                 calculation.x = Number(result);
@@ -220,12 +219,20 @@ buttons.forEach((button) => {
                 }
              }
          else {
-             storeNumber(calculation, button.value);
+            
+             
+            // storeNumber(calculation, button.value);
+            
              if (calculation.operation == null) {
+
+                storeNumber(calculation, button.value);
                 displayvariable = calculation.x
                 }
              else {
-                 displayvariable=calculation.y;
+                 
+                    storeNumber(calculation, button.value);
+                    displayvariable=calculation.y;
+                 
                 }
              }
         displayCurrentCalc(displayvariable);
