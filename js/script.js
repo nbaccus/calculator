@@ -13,7 +13,6 @@ function divide(a,b) {
 }
 
 function operate(x, y, operator) {
-
     switch (operator) {
         case "multiply":
             return multiply(x,y);
@@ -44,12 +43,10 @@ function storeNumber(object, number) {
         object.x += number;
     }
     else  {
-        if (object.y==null) {
-            console.log("inhere");
+        if (object.y==null && object.operation!=null) {
         object.y=number;
         }
-        else if ( object.y.length<=10){
-            console.log("inhere2");
+        else if ( object.operation!=null && object.y.length<=10){
             object.y += number;
         }
 
@@ -146,9 +143,11 @@ buttons.forEach((button) => {
     button.addEventListener('click', function() {
     if (button.value=="equals") {
         if (calculation.y==null && calculation.operation != null) {
+            // pressing = before entering a second number results in an error
             displayCurrentCalc("SYNTAX ERROR");
         }
         else if(calculation.operation == null) {
+            // pressing = on a number returns the number
             displayCurrentCalc(calculation.x);
         }
         else {
@@ -172,6 +171,8 @@ buttons.forEach((button) => {
     }
     else if (button.value == "DEL") {
         if (isNaN(displayvariable)==false || displayvariable.slice(displayvariable-1)==".") {
+            // returns the key of the last number entered and removes the 
+            // last character of number string.  
             key = getObjectkey(calculation, displayvariable);
             if (key != null) {
                 calculation[key] = calculation[key].substring(0,calculation[key].length-1);
@@ -180,6 +181,7 @@ buttons.forEach((button) => {
             }
         }
         else {
+            // deletes last entered operation
             calculation.operation = null;
             displayCurrentCalc("");
         }
@@ -188,6 +190,7 @@ buttons.forEach((button) => {
         
         if (calculation.y == null) {
             if ((calculation.x).includes(".")==false) {
+                //  doesn't allow multiple decimal points in entered number
                 calculation.x += button.value;
                 displayvariable=calculation.x;
             }
@@ -204,6 +207,8 @@ buttons.forEach((button) => {
      else {   
         if (isNaN(button.value)) {
              if (calculation.operation != null && calculation.y!=null) {
+                //  calculates operation for a series of numbers, if = is not pressed.
+                //  e.g allows 12+7-5*3 = 42 
                 let result = 
                 parseFloat(operate(calculation.x, calculation.y, calculation.operation)).toFixed(5);
                 calculation.x = Number(result);
@@ -219,20 +224,13 @@ buttons.forEach((button) => {
                 }
              }
          else {
-            
-             
-            // storeNumber(calculation, button.value);
+            storeNumber(calculation, button.value);
             
              if (calculation.operation == null) {
-
-                storeNumber(calculation, button.value);
                 displayvariable = calculation.x
                 }
              else {
-                 
-                    storeNumber(calculation, button.value);
                     displayvariable=calculation.y;
-                 
                 }
              }
         displayCurrentCalc(displayvariable);
