@@ -40,7 +40,8 @@ body{
     word-break: break-all;
     font-size:40px;
     border-radius: 5px;
-    min-height: 15vh;
+    min-height: 10vh;
+  
    
 }
 
@@ -80,4 +81,11 @@ h1 {
     box-shadow:inset 0px 3px 10px 3px rgba(0, 0, 0, 0.685);
     color:rgba(33, 199, 33, 0.322); 
 
+}
+
+@media (min-height:300px) {
+    #display { 
+        min-height: 50px;
+
+    }
 }
